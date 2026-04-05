@@ -1,3 +1,5 @@
+import { Location } from '~/location';
+
 type DriverStatus = 'available' | 'on-trip' | 'offline';
 
 export class Driver {
@@ -29,9 +31,17 @@ export class Driver {
     return this._earnings;
   }
 
-  acceptRide(rideId: string) {
+  acceptRide(
+    rideId: string,
+    pickupLocation: Location,
+    driverLocation: Location,
+  ) {
     if (this._status !== 'available') {
       throw new Error('Driver is not available');
+    }
+
+    if (driverLocation.distanceTo(pickupLocation) > 5) {
+      throw new Error('Driver is too far from pickup location');
     }
 
     this._status = 'on-trip';
