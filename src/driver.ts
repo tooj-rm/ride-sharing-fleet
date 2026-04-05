@@ -6,6 +6,7 @@ export class Driver {
     public readonly name: string = '',
     private _status: DriverStatus = 'available',
     private _earnings = 0,
+    private _currentRide: string | null = null,
   ) {}
 
   static register(id: string, name: string) {
@@ -26,5 +27,14 @@ export class Driver {
 
   get earnings() {
     return this._earnings;
+  }
+
+  acceptRide(rideId: string) {
+    if (this._status !== 'available') {
+      throw new Error('Driver is not available');
+    }
+
+    this._status = 'on-trip';
+    this._currentRide = rideId;
   }
 }

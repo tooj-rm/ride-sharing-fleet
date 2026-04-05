@@ -32,3 +32,27 @@ describe('Driver', () => {
     expect(driver.earnings).toBe(0);
   });
 });
+
+describe('Driver accepts a ride', () => {
+  it('ride accepted successfully', () => {
+    const rideId = 'ride123';
+    const driver = Driver.register('driver123', 'John Doe');
+
+    driver.acceptRide(rideId);
+
+    expect(driver.status).toBe('on-trip');
+  });
+
+  it('Driver is not available', () => {
+    const rideId = 'ride123';
+    const driver = Driver.register('driver123', 'John Doe');
+
+    driver.acceptRide(rideId);
+    expect(driver.status).toBe('on-trip');
+
+    const anotherRideId = 'ride456';
+    expect(() => driver.acceptRide(anotherRideId)).toThrow(
+      'Driver is not available',
+    );
+  });
+});
