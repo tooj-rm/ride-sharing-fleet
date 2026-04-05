@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Driver, Location } from '~/entities';
+import { Driver, Location } from '~/domain/entities';
 
 describe('Driver', () => {
   it.each([

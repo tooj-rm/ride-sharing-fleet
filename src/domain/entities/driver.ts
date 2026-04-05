@@ -1,4 +1,4 @@
-import { Entity, Location } from '~/entities';
+import { Entity, Location } from '~/domain/entities/index';
 
 type DriverStatus = 'available' | 'on-trip' | 'offline';
 
@@ -70,8 +70,11 @@ export class Driver extends Entity {
       throw new Error('Fare amount must be positive');
     }
 
+    const completeRideId = this._currentRide;
+
     this._status = 'available';
     this._earnings += amount;
+    this._currentRide = null;
 
     this.emitEvent({
       eventId: crypto.randomUUID(),
@@ -79,11 +82,9 @@ export class Driver extends Entity {
       aggregateId: this.id,
       type: 'DriverCompletedRide',
       driverId: this.id,
-      rideId: this._currentRide,
+      rideId: completeRideId,
       fareAmount: amount,
       totalEarnings: this.earnings,
     });
-
-    this._currentRide = null;
   }
 }

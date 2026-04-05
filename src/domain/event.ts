@@ -1,14 +1,14 @@
-import { Location } from '~/entities';
+import { Location } from '~/domain/entities';
 
 export type DomainEvent = DriverAcceptedRide | DriverCompletedRide;
 
-export interface Event {
+export interface BaseEvent {
   eventId: string;
   occurredAt: Date;
   aggregateId: string;
 }
 
-interface DriverAcceptedRide extends Event {
+interface DriverAcceptedRide extends BaseEvent {
   type: 'DriverAcceptedRide';
   rideId: string;
   driverId: string;
@@ -16,7 +16,7 @@ interface DriverAcceptedRide extends Event {
   driverLocation: Location;
 }
 
-interface DriverCompletedRide extends Event {
+interface DriverCompletedRide extends BaseEvent {
   type: 'DriverCompletedRide';
   rideId: string;
   driverId: string;
