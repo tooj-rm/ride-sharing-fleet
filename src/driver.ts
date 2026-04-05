@@ -47,4 +47,18 @@ export class Driver {
     this._status = 'on-trip';
     this._currentRide = rideId;
   }
+
+  completeRide(amount: number) {
+    if (this._currentRide === null) {
+      throw new Error('Driver is not on-trip');
+    }
+
+    if (amount < 0) {
+      throw new Error('Fare amount must be positive');
+    }
+
+    this._status = 'available';
+    this._earnings += amount;
+    this._currentRide = null;
+  }
 }
