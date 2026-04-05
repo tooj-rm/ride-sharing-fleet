@@ -1,4 +1,4 @@
-import { Location } from '~/location';
+import { Location } from '~/entities/location';
 
 type DriverStatus = 'available' | 'on-trip' | 'offline';
 

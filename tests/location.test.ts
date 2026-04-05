@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Location } from '~/location';
+import { Location } from '~/entities/location';
 
 describe('Location', () => {
   it('should create a location with correct initial state', () => {
