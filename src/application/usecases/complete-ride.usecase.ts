@@ -17,5 +17,6 @@ export class CompleteRideUseCase {
 
     driver.completeRide(fareAmount);
     await this.driverRepository.save(driver);
+    return driver;
   }
 }

@@ -19,5 +19,6 @@ export class AcceptRideUseCase {
 
     driver.acceptRide(param.rideId, param.pickupLocation, param.driverLocation);
     await this.driverRepository.save(driver);
+    return driver;
   }
 }
