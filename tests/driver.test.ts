@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Driver } from '~/entities/driver';
-import { Location } from '~/entities/location';
+import { Driver, Location } from '~/entities';
 
 describe('Driver', () => {
   it.each([
@@ -69,6 +68,17 @@ describe('Driver accepts a ride', () => {
       driver.acceptRide('ride123', pickupLocation, driverLocation),
     ).toThrow('Driver is too far from pickup location');
   });
+
+  it('should emit event when driver accepts ride', () => {
+    const driver = Driver.register('driver123', 'John Doe');
+
+    driver.acceptRide('ride123', Location.at(0, 0), Location.at(0.01, 0));
+
+    const events = driver.releaseEvents();
+    expect(events).toHaveLength(1);
+    expect(events[0].type).toBe('DriverAcceptedRide');
+    expect(events[0].rideId).toBe('ride123');
+  });
 });
 
 describe('Driver completes a ride', () => {
@@ -104,5 +114,19 @@ describe('Driver completes a ride', () => {
     expect(() => driver.completeRide(-50)).toThrow(
       'Fare amount must be positive',
     );
+  });
+
+  it('should emit event when driver accepts ride', () => {
+    const driver = Driver.register('driver123', 'John Doe');
+
+    driver.acceptRide('ride123', Location.at(0, 0), Location.at(0.01, 0));
+    driver.releaseEvents();
+
+    driver.completeRide(50);
+
+    const events = driver.releaseEvents();
+    expect(events).toHaveLength(1);
+    expect(events[0].type).toBe('DriverCompletedRide');
+    expect(events[0].rideId).toBe('ride123');
   });
 });

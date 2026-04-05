@@ -1,15 +1,17 @@
-import { Location } from '~/entities/location';
+import { Entity, Location } from '~/entities';
 
 type DriverStatus = 'available' | 'on-trip' | 'offline';
 
-export class Driver {
+export class Driver extends Entity {
   private constructor(
     public readonly id: string = '',
     public readonly name: string = '',
     private _status: DriverStatus = 'available',
     private _earnings = 0,
     private _currentRide: string | null = null,
-  ) {}
+  ) {
+    super(id);
+  }
 
   static register(id: string, name: string) {
     if (id.trim().length < 5) {
@@ -46,6 +48,17 @@ export class Driver {
 
     this._status = 'on-trip';
     this._currentRide = rideId;
+
+    this.emitEvent({
+      eventId: crypto.randomUUID(),
+      occurredAt: new Date(),
+      aggregateId: this.id,
+      type: 'DriverAcceptedRide',
+      rideId,
+      driverId: this.id,
+      pickupLocation,
+      driverLocation,
+    });
   }
 
   completeRide(amount: number) {
@@ -59,6 +72,18 @@ export class Driver {
 
     this._status = 'available';
     this._earnings += amount;
+
+    this.emitEvent({
+      eventId: crypto.randomUUID(),
+      occurredAt: new Date(),
+      aggregateId: this.id,
+      type: 'DriverCompletedRide',
+      driverId: this.id,
+      rideId: this._currentRide,
+      fareAmount: amount,
+      totalEarnings: this.earnings,
+    });
+
     this._currentRide = null;
   }
 }
