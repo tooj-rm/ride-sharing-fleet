@@ -1,0 +1,27 @@
+### Register a new driver
+POST http://localhost:3000/drivers
+Content-Type: application/json
+
+{
+  "id": "driver123",
+  "name": "John Doe"
+}
+
+### Accept a ride
+POST http://localhost:3000/drivers/accept-ride
+Content-Type: application/json
+
+{
+  "driverId": "driver123",
+  "rideId": "ride123"
+}
+
+### Complete a ride
+POST http://localhost:3000/drivers/complete-ride
+Content-Type: application/json
+
+{
+  "driverId": "driver123",
+  "rideId": "ride123",
+  "fareAmount": 50
+}

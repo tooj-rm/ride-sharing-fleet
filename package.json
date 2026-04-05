@@ -10,7 +10,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "prepare": "husky",
-    "dev": "tsx watch src/infra/api/express/main.ts"
+    "dev": "tsx watch src/presentation/express/main.ts"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
