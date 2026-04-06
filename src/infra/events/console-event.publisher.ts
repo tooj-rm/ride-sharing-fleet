@@ -1,4 +1,4 @@
-import { DomainEvent } from '~/domain/event';
+import { DomainEvent } from '~/domain/events';
 import { EventPublisher } from '~/infra/events';
 
 export class ConsoleEventPublisher implements EventPublisher {

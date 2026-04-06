@@ -1,6 +1,5 @@
 import { Entity, Location } from '~/domain/entities/index';
-
-type DriverStatus = 'available' | 'on-trip' | 'offline';
+import { DriverStatus } from '~/domain/vo';
 
 export class Driver extends Entity {
   private constructor(

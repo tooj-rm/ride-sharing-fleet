@@ -1,4 +1,4 @@
-import { DomainEvent } from '~/domain/event';
+import { DomainEvent } from '~/domain/events';
 
 export abstract class Entity {
   private _events: DomainEvent[] = [];
