@@ -2,4 +2,4 @@ npm run format
 npm run lint:fix
 npm run test
 
-git add -u
+git add $(git diff --name-only --cached)
