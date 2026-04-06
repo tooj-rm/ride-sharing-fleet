@@ -13,10 +13,10 @@ describe('CompleteRideUseCase', () => {
     useCase = new CompleteRideUseCase(driverRepository);
   });
 
-  it('should throw an error when driver not found', () => {
+  it('should throw an error when driver not found', async () => {
     driverRepository.findById.mockResolvedValue(null);
 
-    expect(() =>
+    await expect(() =>
       useCase.execute({
         driverId: 'driver123',
         rideId: 'ride123',
@@ -27,11 +27,11 @@ describe('CompleteRideUseCase', () => {
     expect(driverRepository.save).not.toHaveBeenCalled();
   });
 
-  it('should throw an error when driver is not on-trip', () => {
+  it('should throw an error when driver is not on-trip', async () => {
     const driver = Driver.register('driver123', 'John Doe');
     driverRepository.findById.mockResolvedValue(driver);
 
-    expect(() =>
+    await expect(() =>
       useCase.execute({
         driverId: 'driver123',
         rideId: 'ride123',
@@ -42,12 +42,12 @@ describe('CompleteRideUseCase', () => {
     expect(driverRepository.save).not.toHaveBeenCalled();
   });
 
-  it('should throw an error when fare amount is negative', () => {
+  it('should throw an error when fare amount is negative', async () => {
     const driver = Driver.register('driver123', 'John Doe');
     driver.acceptRide('ride123', Location.at(0, 0), Location.at(0.01, 0));
     driverRepository.findById.mockResolvedValue(driver);
 
-    expect(() =>
+    await expect(() =>
       useCase.execute({
         driverId: 'driver123',
         rideId: 'ride123',
