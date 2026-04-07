@@ -1,8 +1,13 @@
 import { RideRepository } from '~/domain/repositories';
-import { Location, Ride } from '~/domain/entities';
+import { Ride } from '~/domain/entities';
+import { Location } from '~/domain/vo';
+import { EventPublisher } from '~/domain/events';
 
 export class RequestRideUseCase {
-  constructor(private readonly rideRepository: RideRepository) {}
+  constructor(
+    private readonly rideRepository: RideRepository,
+    private readonly eventPublisher: EventPublisher,
+  ) {}
 
   async execute({
     dropOfLocation,
@@ -13,6 +18,7 @@ export class RequestRideUseCase {
     const ride = Ride.request(rideId, riderId, pickupLocation, dropOfLocation);
 
     await this.rideRepository.save(ride);
+    await this.eventPublisher.publish(ride.releaseEvents());
     return ride;
   }
 }

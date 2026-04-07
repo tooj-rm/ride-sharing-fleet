@@ -3,14 +3,17 @@ import { mock, MockProxy } from 'vitest-mock-extended';
 import { Driver } from '~/domain/entities';
 import { RegisterDriverUseCase } from '~/application/usecases';
 import { DriverRepository } from '~/domain/repositories';
+import { EventPublisher } from '~/domain/events';
 
 describe('RegisterDriverUseCase', () => {
   let driverRepository: MockProxy<DriverRepository>;
+  let eventPublisher: MockProxy<EventPublisher>;
   let useCase: RegisterDriverUseCase;
 
   beforeEach(() => {
     driverRepository = mock<DriverRepository>();
-    useCase = new RegisterDriverUseCase(driverRepository);
+    eventPublisher = mock<EventPublisher>();
+    useCase = new RegisterDriverUseCase(driverRepository, eventPublisher);
   });
 
   it('should register a new driver successfully', async () => {
