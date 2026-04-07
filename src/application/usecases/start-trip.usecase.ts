@@ -1,5 +1,6 @@
 import { DriverRepository, RideRepository } from '~/domain/repositories';
 import { EventPublisher } from '~/domain/events';
+import { DriverNotAssignedToRide, RideNotFound } from '~/domain/exceptions';
 
 export class StartTripUseCase {
   constructor(
@@ -11,11 +12,11 @@ export class StartTripUseCase {
   async execute(rideId: string, driverId: string) {
     const ride = await this.rideRepository.findById(rideId);
     if (!ride) {
-      throw new Error('Ride not found');
+      throw new RideNotFound();
     }
 
     if (ride.driverId !== driverId) {
-      throw new Error('This driver is not assigned to this ride');
+      throw new DriverNotAssignedToRide();
     }
 
     ride.start();

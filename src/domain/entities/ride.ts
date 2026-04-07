@@ -1,5 +1,6 @@
 import { Location, RideStatus } from '~/domain/vo';
 import { Entity } from '~/domain/entities';
+import { DomainException, RideAlreadyAccepted } from '~/domain/exceptions';
 
 export class Ride extends Entity {
   private _cancelledBy: 'rider' | 'driver' | null = null;
@@ -48,7 +49,7 @@ export class Ride extends Entity {
 
   accept(driverId: string) {
     if (this._status === 'accepted') {
-      throw new Error('Ride already accepted');
+      throw new RideAlreadyAccepted();
     }
 
     this._status = 'accepted';
@@ -83,7 +84,7 @@ export class Ride extends Entity {
 
   cancel(cancelledBy: 'rider' | 'driver') {
     if (this._status === 'in-progress') {
-      throw new Error('Cannot cancel ride in progress');
+      throw new DomainException('Cannot cancel ride in progress');
     }
 
     this._status = 'cancelled';
@@ -103,7 +104,7 @@ export class Ride extends Entity {
 
   complete() {
     if (this._status !== 'in-progress') {
-      throw new Error("Cannot complete ride if it's not started");
+      throw new DomainException("Cannot complete ride if it's not started");
     }
 
     this._status = 'completed';

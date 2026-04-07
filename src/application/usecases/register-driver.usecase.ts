@@ -1,6 +1,7 @@
 import { DriverRepository } from '~/domain/repositories';
 import { Driver } from '~/domain/entities';
 import { EventPublisher } from '~/domain/events';
+import { DriverAlreadyRegistered } from '~/domain/exceptions';
 
 export class RegisterDriverUseCase {
   constructor(
@@ -11,7 +12,7 @@ export class RegisterDriverUseCase {
   async execute({ id, name }: RegisterDriverInput): Promise<Driver> {
     let driver = await this.driverRepository.findById(id);
     if (driver) {
-      throw new Error('Driver already registered');
+      throw new DriverAlreadyRegistered();
     }
 
     driver = Driver.register(id, name);

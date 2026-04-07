@@ -1,6 +1,7 @@
 import { DriverRepository, RideRepository } from '~/domain/repositories';
 import { Location } from '~/domain/vo';
 import { EventPublisher } from '~/domain/events';
+import { DriverNotFound, RideNotFound } from '~/domain/exceptions';
 
 type AcceptRideInput = {
   driverId: string;
@@ -25,10 +26,10 @@ export class AcceptRideUseCase {
     const driver = await this.driverRepository.findById(driverId);
     const ride = await this.rideRepository.findById(rideId);
     if (!driver) {
-      throw new Error('Driver not found');
+      throw new DriverNotFound();
     }
     if (!ride) {
-      throw new Error('Ride not found');
+      throw new RideNotFound();
     }
 
     driver.acceptRide(rideId, pickupLocation, driverLocation);

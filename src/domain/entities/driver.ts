@@ -1,5 +1,10 @@
 import { Entity } from '~/domain/entities';
 import { DriverStatus, Location } from '~/domain/vo';
+import {
+  DomainException,
+  DriverNotAvailable,
+  DriverNotOnTrip,
+} from '~/domain/exceptions';
 
 export class Driver extends Entity {
   private constructor(
@@ -14,11 +19,11 @@ export class Driver extends Entity {
 
   static register(id: string, name: string) {
     if (id.trim().length < 5) {
-      throw new Error('Driver ID must be at least 5 characters');
+      throw new DomainException('Driver ID must be at least 5 characters');
     }
 
     if (name.trim().length < 2) {
-      throw new Error('Driver name must be at least 2 characters');
+      throw new DomainException('Driver name must be at least 2 characters');
     }
 
     const driver = new Driver(id.trim(), name.trim());
@@ -49,11 +54,11 @@ export class Driver extends Entity {
     driverLocation: Location,
   ) {
     if (this._status !== 'available') {
-      throw new Error('Driver is not available');
+      throw new DriverNotAvailable();
     }
 
     if (driverLocation.distanceTo(pickupLocation) > 5) {
-      throw new Error('Driver is too far from pickup location');
+      throw new DomainException('Driver is too far from pickup location');
     }
 
     this._status = 'on-trip';
@@ -73,11 +78,11 @@ export class Driver extends Entity {
 
   completeRide(amount: number) {
     if (this._currentRide === null) {
-      throw new Error('Driver is not on-trip');
+      throw new DriverNotOnTrip();
     }
 
     if (amount < 0) {
-      throw new Error('Fare amount must be positive');
+      throw new DomainException('Fare amount must be positive');
     }
 
     const completeRideId = this._currentRide;

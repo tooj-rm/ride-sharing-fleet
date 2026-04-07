@@ -1,5 +1,6 @@
 import { DriverRepository, RideRepository } from '~/domain/repositories';
 import { EventPublisher } from '~/domain/events';
+import { DriverNotFound, RideNotFound } from '~/domain/exceptions';
 
 type CompleteRideInput = {
   driverId: string;
@@ -19,11 +20,11 @@ export class CompleteRideUseCase {
     const ride = await this.rideRepository.findById(rideId);
 
     if (!driver) {
-      throw new Error('Driver not found');
+      throw new DriverNotFound();
     }
 
     if (!ride) {
-      throw new Error('Ride not found');
+      throw new RideNotFound();
     }
 
     ride.complete();
