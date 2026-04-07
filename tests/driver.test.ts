@@ -76,9 +76,9 @@ describe('Driver accepts a ride', () => {
     driver.acceptRide('ride123', Location.at(0, 0), Location.at(0.01, 0));
 
     const events = driver.releaseEvents();
-    expect(events).toHaveLength(1);
-    expect(events[0].type).toBe('DriverAcceptedRide');
-    expect(events[0].rideId).toBe('ride123');
+    expect(events).toHaveLength(2);
+    expect(events[1].type).toBe('DriverAcceptedRide');
+    expect(events[1].rideId).toBe('ride123');
   });
 });
 

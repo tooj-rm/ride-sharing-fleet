@@ -1,4 +1,4 @@
-import { Entity } from '~/domain/entities/index';
+import { Entity } from '~/domain/entities';
 import { DriverStatus, Location } from '~/domain/vo';
 
 export class Driver extends Entity {
@@ -21,7 +21,18 @@ export class Driver extends Entity {
       throw new Error('Driver name must be at least 2 characters');
     }
 
-    return new Driver(id.trim(), name.trim());
+    const driver = new Driver(id.trim(), name.trim());
+
+    driver.emitEvent({
+      eventId: crypto.randomUUID(),
+      occurredAt: new Date(),
+      aggregateId: driver.id,
+      type: 'DriverRegistered',
+      driverId: driver.id,
+      name: driver.name,
+    });
+
+    return driver;
   }
 
   get status() {

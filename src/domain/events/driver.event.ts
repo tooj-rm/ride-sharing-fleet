@@ -1,6 +1,12 @@
 import { Location } from '~/domain/vo';
 import { BaseEvent } from '~/domain/events';
 
+export interface DriverRegistered extends BaseEvent {
+  type: 'DriverRegistered';
+  driverId: string;
+  name: string;
+}
+
 export interface DriverAcceptedRide extends BaseEvent {
   type: 'DriverAcceptedRide';
   rideId: string;

@@ -1,6 +1,7 @@
 import {
   DriverAcceptedRide,
   DriverCompletedRide,
+  DriverRegistered,
   RideAccepted,
   RideCancelled,
   RideCompleted,
@@ -15,6 +16,7 @@ export interface BaseEvent {
 }
 
 export type DomainEvent =
+  | DriverRegistered
   | DriverAcceptedRide
   | DriverCompletedRide
   | RideRequested

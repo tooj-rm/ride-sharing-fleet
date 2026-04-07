@@ -1,13 +1,12 @@
 import { DriverRepository } from '~/domain/repositories';
 import { Driver } from '~/domain/entities';
-
-type RegisterDriverInput = {
-  id: string;
-  name: string;
-};
+import { EventPublisher } from '~/domain/events';
 
 export class RegisterDriverUseCase {
-  constructor(private readonly driverRepository: DriverRepository) {}
+  constructor(
+    private readonly driverRepository: DriverRepository,
+    private readonly eventPublisher: EventPublisher,
+  ) {}
 
   async execute({ id, name }: RegisterDriverInput): Promise<Driver> {
     let driver = await this.driverRepository.findById(id);
@@ -17,7 +16,13 @@ export class RegisterDriverUseCase {
 
     driver = Driver.register(id, name);
     await this.driverRepository.save(driver);
+    await this.eventPublisher.publish(driver.releaseEvents());
 
     return driver;
   }
 }
+
+type RegisterDriverInput = {
+  id: string;
+  name: string;
+};
