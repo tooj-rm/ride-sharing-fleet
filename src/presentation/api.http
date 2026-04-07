@@ -33,6 +33,15 @@ Content-Type: application/json
   "rideId": "ride123"
 }
 
+### Start a trip
+POST http://localhost:3000/drivers/start-trip
+Content-Type: application/json
+
+{
+  "driverId": "driver123",
+  "rideId": "ride123"
+}
+
 ### Complete a ride
 POST http://localhost:3000/drivers/complete-ride
 Content-Type: application/json

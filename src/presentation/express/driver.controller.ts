@@ -2,6 +2,7 @@ import {
   AcceptRideUseCase,
   CompleteRideUseCase,
   RegisterDriverUseCase,
+  StartTripUseCase,
 } from '~/application/usecases';
 import { Request, Response } from 'express';
 import { Location } from '~/domain/vo';
@@ -10,6 +11,7 @@ export class DriverController {
   constructor(
     private readonly registerDriverUseCase: RegisterDriverUseCase,
     private readonly acceptRideUseCase: AcceptRideUseCase,
+    private readonly startTripUseCase: StartTripUseCase,
     private readonly completeRideUseCase: CompleteRideUseCase,
   ) {}
 
@@ -30,6 +32,12 @@ export class DriverController {
       driverLocation,
     });
     res.send({ message: 'Ride accepted' });
+  };
+
+  startTrip = async (req: Request, res: Response) => {
+    const { driverId, rideId } = req.body;
+    await this.startTripUseCase.execute(rideId, driverId);
+    res.send({ message: 'Trip started' });
   };
 
   completeRide = async (req: Request, res: Response) => {

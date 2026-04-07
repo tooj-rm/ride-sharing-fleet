@@ -2,9 +2,11 @@ import express from 'express';
 import { RideController } from '~/presentation/express/ride.controller';
 import { RequestRideUseCase } from '~/application/usecases';
 import { container } from '~/presentation/express/container';
+import { RideRepository } from '~/domain/repositories';
+import { EventPublisher } from '~/domain/events';
 
-const rideRepository = container.get('rideRepository');
-const eventPublisher = container.get('eventPublisher');
+const rideRepository = container.get('rideRepository') as RideRepository;
+const eventPublisher = container.get('eventPublisher') as EventPublisher;
 
 const requestRideUseCase = new RequestRideUseCase(
   rideRepository,
