@@ -1,8 +1,9 @@
-import {
-  InMemoryDriverRepository,
-  InMemoryRideRepository,
-} from '~/infra/repositories/in-memory';
 import { ConsoleEventPublisher } from '~/infra/events';
+import { prisma } from '~/infra/database/prisma';
+import {
+  PrismaDriverRepository,
+  PrismaRideRepository,
+} from '~/infra/database/prisma/repositories';
 
 export class DIContainer {
   private readonly dependencies: Map<string, unknown>;
@@ -14,8 +15,11 @@ export class DIContainer {
 
   #registerDependencies() {
     // Repositories
-    this.dependencies.set('driverRepository', new InMemoryDriverRepository());
-    this.dependencies.set('rideRepository', new InMemoryRideRepository());
+    this.dependencies.set(
+      'driverRepository',
+      new PrismaDriverRepository(prisma),
+    );
+    this.dependencies.set('rideRepository', new PrismaRideRepository(prisma));
 
     // Infrastructure Services
     this.dependencies.set('eventPublisher', new ConsoleEventPublisher());
