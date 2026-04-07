@@ -37,6 +37,9 @@ export class AcceptRideUseCase {
     await this.rideRepository.save(ride);
     await this.driverRepository.save(driver);
 
+    await this.eventPublisher.publish(driver.releaseEvents());
+    await this.eventPublisher.publish(ride.releaseEvents());
+
     return driver;
   }
 }

@@ -1,20 +1,20 @@
 import {
-  InMemoryDriverRepository,
-  InMemoryRideRepository,
-} from '~/infra/repositories/in-memory';
-import {
   AcceptRideUseCase,
   CompleteRideUseCase,
   RegisterDriverUseCase,
 } from '~/application/usecases';
-import { ConsoleEventPublisher } from '~/infra/events';
 import { DriverController } from '~/presentation/express/driver.controller';
 import express from 'express';
+import { container } from '~/presentation/express/container';
 
-const driverRepository = new InMemoryDriverRepository();
-const rideRepository = new InMemoryRideRepository();
-const eventPublisher = new ConsoleEventPublisher();
-const registerDriverUseCase = new RegisterDriverUseCase(driverRepository);
+const driverRepository = container.get('driverRepository');
+const rideRepository = container.get('rideRepository');
+const eventPublisher = container.get('eventPublisher');
+
+const registerDriverUseCase = new RegisterDriverUseCase(
+  driverRepository,
+  eventPublisher,
+);
 const acceptRideUseCase = new AcceptRideUseCase(
   driverRepository,
   rideRepository,

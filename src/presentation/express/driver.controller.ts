@@ -4,7 +4,7 @@ import {
   RegisterDriverUseCase,
 } from '~/application/usecases';
 import { Request, Response } from 'express';
-import { Location } from '~/domain/entities';
+import { Location } from '~/domain/vo';
 
 export class DriverController {
   constructor(
