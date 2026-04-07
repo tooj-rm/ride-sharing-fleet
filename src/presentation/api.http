@@ -7,6 +7,23 @@ Content-Type: application/json
   "name": "John Doe"
 }
 
+### Request a ride
+POST http://localhost:3000/rides
+Content-Type: application/json
+
+{
+  "rideId": "ride123",
+  "riderId": "rider123",
+  "pickupLocation": {
+    "latitude": 0,
+    "longitude": 0
+  },
+  "dropOfLocation": {
+    "latitude": 0.01,
+    "longitude": 0
+  }
+}
+
 ### Accept a ride
 POST http://localhost:3000/drivers/accept-ride
 Content-Type: application/json
