@@ -25,6 +25,7 @@
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
     "prettier": "^3.8.1",
+    "prisma": "^7.6.0",
     "tsx": "^4.21.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.58.0",
@@ -33,6 +34,9 @@
   },
   "private": true,
   "dependencies": {
+    "@prisma/adapter-pg": "^7.6.0",
+    "@prisma/client": "^7.6.0",
+    "dotenv": "^17.4.1",
     "express": "^5.2.1"
   }
 }
