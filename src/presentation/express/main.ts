@@ -1,6 +1,5 @@
 import express from 'express';
-import driverRoute from '~/presentation/express/driver.route';
-import rideRoute from '~/presentation/express/ride.route';
+import { driverRoute, rideRoute } from '~/presentation/express/routes';
 
 const app = express();
 

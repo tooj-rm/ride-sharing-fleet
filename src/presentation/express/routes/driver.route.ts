@@ -4,7 +4,7 @@ import {
   RegisterDriverUseCase,
   StartTripUseCase,
 } from '~/application/usecases';
-import { DriverController } from '~/presentation/express/driver.controller';
+import { DriverController } from '~/presentation/express/controllers';
 import express from 'express';
 import { container } from '~/presentation/express/container';
 import { DriverRepository, RideRepository } from '~/domain/repositories';

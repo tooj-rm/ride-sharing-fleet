@@ -1,5 +1,5 @@
 import express from 'express';
-import { RideController } from '~/presentation/express/ride.controller';
+import { RideController } from '~/presentation/express/controllers';
 import { RequestRideUseCase } from '~/application/usecases';
 import { container } from '~/presentation/express/container';
 import { RideRepository } from '~/domain/repositories';
