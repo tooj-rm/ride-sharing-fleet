@@ -1,4 +1,12 @@
-import { DriverAcceptedRide, DriverCompletedRide } from '~/domain/events';
+import {
+  DriverAcceptedRide,
+  DriverCompletedRide,
+  RideAccepted,
+  RideCancelled,
+  RideCompleted,
+  RideRequested,
+  RideStarted,
+} from '~/domain/events';
 
 export interface BaseEvent {
   eventId: string;
@@ -6,4 +14,11 @@ export interface BaseEvent {
   aggregateId: string;
 }
 
-export type DomainEvent = DriverAcceptedRide | DriverCompletedRide;
+export type DomainEvent =
+  | DriverAcceptedRide
+  | DriverCompletedRide
+  | RideRequested
+  | RideAccepted
+  | RideStarted
+  | RideCancelled
+  | RideCompleted;
