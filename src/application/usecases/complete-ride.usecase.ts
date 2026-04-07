@@ -31,6 +31,8 @@ export class CompleteRideUseCase {
     driver.completeRide(fareAmount);
 
     await this.driverRepository.save(driver);
+    await this.rideRepository.save(ride);
+
     await this.eventPublisher.publish([
       ...ride.releaseEvents(),
       ...driver.releaseEvents(),
