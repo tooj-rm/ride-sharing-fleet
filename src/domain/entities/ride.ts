@@ -4,6 +4,7 @@ import { DomainException, RideAlreadyAccepted } from '~/domain/exceptions';
 
 export class Ride extends Entity {
   private _cancelledBy: 'rider' | 'driver' | null = null;
+
   private constructor(
     public readonly rideId: string,
     public readonly riderId: string,
@@ -68,7 +69,7 @@ export class Ride extends Entity {
   }
 
   start() {
-    this._status = 'in-progress';
+    this._status = 'in_progress';
 
     this.emitEvent({
       eventId: crypto.randomUUID(),
@@ -83,7 +84,7 @@ export class Ride extends Entity {
   }
 
   cancel(cancelledBy: 'rider' | 'driver') {
-    if (this._status === 'in-progress') {
+    if (this._status === 'in_progress') {
       throw new DomainException('Cannot cancel ride in progress');
     }
 
@@ -103,7 +104,7 @@ export class Ride extends Entity {
   }
 
   complete() {
-    if (this._status !== 'in-progress') {
+    if (this._status !== 'in_progress') {
       throw new DomainException("Cannot complete ride if it's not started");
     }
 
@@ -119,5 +120,26 @@ export class Ride extends Entity {
       pickupLocation: this.pickupLocation,
       dropOfLocation: this.dropOfLocation,
     });
+  }
+
+  static hydrate(
+    id: string,
+    riderId: string,
+    pickupLocation: { lat: number; lng: number },
+    dropOfLocation: {
+      lat: number;
+      lng: number;
+    },
+    status: RideStatus,
+    driverId: string | null,
+  ) {
+    return new Ride(
+      id,
+      riderId,
+      Location.at(pickupLocation.lat, pickupLocation.lng),
+      Location.at(dropOfLocation.lat, dropOfLocation.lng),
+      status,
+      driverId,
+    );
   }
 }

@@ -7,16 +7,6 @@ import {
 } from '~/domain/exceptions';
 
 export class Driver extends Entity {
-  private constructor(
-    public readonly id: string = '',
-    public readonly name: string = '',
-    private _status: DriverStatus = 'available',
-    private _earnings = 0,
-    private _currentRide: string | null = null,
-  ) {
-    super(id);
-  }
-
   static register(id: string, name: string) {
     if (id.trim().length < 5) {
       throw new DomainException('Driver ID must be at least 5 characters');
@@ -40,12 +30,26 @@ export class Driver extends Entity {
     return driver;
   }
 
+  private constructor(
+    public readonly id: string = '',
+    public readonly name: string = '',
+    private _status: DriverStatus = 'available',
+    private _currentRide: string | null = null,
+    private _earnings = 0,
+  ) {
+    super(id);
+  }
+
   get status() {
     return this._status;
   }
 
   get earnings() {
     return this._earnings;
+  }
+
+  get currentRide() {
+    return this._currentRide;
   }
 
   acceptRide(
@@ -61,7 +65,7 @@ export class Driver extends Entity {
       throw new DomainException('Driver is too far from pickup location');
     }
 
-    this._status = 'on-trip';
+    this._status = 'on_trip';
     this._currentRide = rideId;
 
     this.emitEvent({
@@ -101,5 +105,14 @@ export class Driver extends Entity {
       fareAmount: amount,
       totalEarnings: this.earnings,
     });
+  }
+
+  static hydrate(
+    id: string,
+    name: string,
+    status: DriverStatus,
+    currentRide: string | null,
+  ) {
+    return new Driver(id, name, status, currentRide);
   }
 }
