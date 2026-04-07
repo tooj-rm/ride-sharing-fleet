@@ -1,4 +1,7 @@
-import { InMemoryDriverRepository } from '~/infra/repositories/in-memory';
+import {
+  InMemoryDriverRepository,
+  InMemoryRideRepository,
+} from '~/infra/repositories/in-memory';
 import {
   AcceptRideUseCase,
   CompleteRideUseCase,
@@ -9,16 +12,20 @@ import { DriverController } from '~/presentation/express/driver.controller';
 import express from 'express';
 
 const driverRepository = new InMemoryDriverRepository();
-const registerDriverUseCase = new RegisterDriverUseCase(driverRepository);
-const acceptRideUseCase = new AcceptRideUseCase(driverRepository);
-const completeRideUseCase = new CompleteRideUseCase(driverRepository);
+const rideRepository = new InMemoryRideRepository();
 const eventPublisher = new ConsoleEventPublisher();
+const registerDriverUseCase = new RegisterDriverUseCase(driverRepository);
+const acceptRideUseCase = new AcceptRideUseCase(
+  driverRepository,
+  rideRepository,
+  eventPublisher,
+);
+const completeRideUseCase = new CompleteRideUseCase(driverRepository);
 
 const driverController = new DriverController(
   registerDriverUseCase,
   acceptRideUseCase,
   completeRideUseCase,
-  eventPublisher,
 );
 
 const router = express.Router();

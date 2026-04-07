@@ -1,5 +1,6 @@
 import { DriverRepository, RideRepository } from '~/domain/repositories';
 import { Location } from '~/domain/entities';
+import { EventPublisher } from '~/domain/events';
 
 type AcceptRideInput = {
   driverId: string;
@@ -12,6 +13,7 @@ export class AcceptRideUseCase {
   constructor(
     private readonly driverRepository: DriverRepository,
     private readonly rideRepository: RideRepository,
+    private readonly eventPublisher: EventPublisher,
   ) {}
 
   async execute({
