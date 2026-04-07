@@ -61,6 +61,6 @@ describe('StartTripUseCase', () => {
     await useCase.execute('ride123', 'driver123');
 
     expect(rideRepository.save).toHaveBeenCalledWith(ride);
-    expect(ride.status).toBe('in-progress');
+    expect(ride.status).toBe('in_progress');
   });
 });

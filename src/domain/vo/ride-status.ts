@@ -1,6 +1,6 @@
 export type RideStatus =
   | 'requested'
   | 'accepted'
-  | 'in-progress'
+  | 'in_progress'
   | 'completed'
   | 'cancelled';

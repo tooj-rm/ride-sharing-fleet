@@ -73,7 +73,7 @@ describe('AcceptRideUseCase', () => {
     expect(driverRepository.save).toHaveBeenCalledWith(driver);
     expect(rideRepository.save).toHaveBeenCalledWith(ride);
 
-    expect(driver.status).toBe('on-trip');
+    expect(driver.status).toBe('on_trip');
     expect(ride.status).toBe('accepted');
   });
 

@@ -1,1 +1,1 @@
-export type DriverStatus = 'available' | 'on-trip' | 'offline';
+export type DriverStatus = 'available' | 'on_trip' | 'offline';

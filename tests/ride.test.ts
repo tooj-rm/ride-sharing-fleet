@@ -64,7 +64,7 @@ describe('Ride', () => {
     ride.accept('driver123');
     ride.start();
 
-    expect(ride.status).toBe('in-progress');
+    expect(ride.status).toBe('in_progress');
   });
 
   it('should cancel ride when rider cancels before acceptance', () => {

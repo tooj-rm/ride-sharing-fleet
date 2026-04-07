@@ -42,7 +42,7 @@ describe('Driver accepts a ride', () => {
     const driverLocation = Location.at(0.01, 0);
 
     driver.acceptRide(rideId, pickupLocation, driverLocation);
-    expect(driver.status).toBe('on-trip');
+    expect(driver.status).toBe('on_trip');
 
     const anotherRideId = 'ride456';
     expect(() =>
@@ -57,7 +57,7 @@ describe('Driver accepts a ride', () => {
 
     driver.acceptRide('ride123', pickupLocation, driverLocation);
 
-    expect(driver.status).toBe('on-trip');
+    expect(driver.status).toBe('on_trip');
   });
 
   it('should not accept ride when driver is more than 5km from pickup', () => {
@@ -90,7 +90,7 @@ describe('Driver completes a ride', () => {
     const rideId = 'ride123';
 
     driver.acceptRide(rideId, pickupLocation, driverLocation);
-    expect(driver.status).toBe('on-trip');
+    expect(driver.status).toBe('on_trip');
     expect(driver.earnings).toBe(0);
 
     driver.completeRide(50);
