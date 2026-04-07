@@ -1,5 +1,5 @@
-import { Entity, Location } from '~/domain/entities/index';
-import { DriverStatus } from '~/domain/vo';
+import { Entity } from '~/domain/entities/index';
+import { DriverStatus, Location } from '~/domain/vo';
 
 export class Driver extends Entity {
   private constructor(

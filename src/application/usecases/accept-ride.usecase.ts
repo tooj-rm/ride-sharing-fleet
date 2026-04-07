@@ -1,5 +1,5 @@
 import { DriverRepository, RideRepository } from '~/domain/repositories';
-import { Location } from '~/domain/entities';
+import { Location } from '~/domain/vo';
 import { EventPublisher } from '~/domain/events';
 
 type AcceptRideInput = {

@@ -1,4 +1,4 @@
-import { Location } from '~/domain/entities';
+import { Location } from '~/domain/vo';
 import { BaseEvent } from '~/domain/events';
 
 export interface DriverAcceptedRide extends BaseEvent {

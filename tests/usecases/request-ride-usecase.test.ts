@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { mock, MockProxy } from 'vitest-mock-extended';
 import { RideRepository } from '~/domain/repositories';
 import { RequestRideUseCase } from '~/application/usecases';
-import { Location } from '~/domain/entities';
+import { Location } from '~/domain/vo';
 
 describe('RequestRideUseCase', () => {
   let useCase: RequestRideUseCase;

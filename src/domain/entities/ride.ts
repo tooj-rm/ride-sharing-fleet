@@ -1,5 +1,5 @@
-import { RideStatus } from '~/domain/vo';
-import { Entity, Location } from '~/domain/entities';
+import { Location, RideStatus } from '~/domain/vo';
+import { Entity } from '~/domain/entities';
 
 export class Ride extends Entity {
   private _cancelledBy: 'rider' | 'driver' | null = null;

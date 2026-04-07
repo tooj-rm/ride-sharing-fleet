@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { Location, Ride } from '~/domain/entities';
+import { Ride } from '~/domain/entities';
+import { Location } from '~/domain/vo';
 
 describe('Ride', () => {
   it('should create a ride request with initial status', () => {

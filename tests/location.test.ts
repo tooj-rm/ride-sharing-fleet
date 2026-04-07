@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Location } from '~/domain/entities';
+import { Location } from '~/domain/vo';
 
 describe('Location', () => {
   it('should create a location with correct initial state', () => {

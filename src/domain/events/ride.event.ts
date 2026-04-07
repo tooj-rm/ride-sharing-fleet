@@ -1,5 +1,5 @@
 import { BaseEvent } from '~/domain/events/event';
-import { Location } from '~/domain/entities';
+import { Location } from '~/domain/vo';
 
 export interface RideRequested extends BaseEvent {
   type: 'RideRequested';

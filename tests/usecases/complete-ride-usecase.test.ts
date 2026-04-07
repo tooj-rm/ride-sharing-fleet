@@ -2,7 +2,8 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { mock, MockProxy } from 'vitest-mock-extended';
 import { DriverRepository } from '~/domain/repositories';
 import { CompleteRideUseCase } from '~/application/usecases';
-import { Driver, Location } from '~/domain/entities';
+import { Driver } from '~/domain/entities';
+import { Location } from '~/domain/vo';
 
 describe('CompleteRideUseCase', () => {
   let useCase: CompleteRideUseCase;

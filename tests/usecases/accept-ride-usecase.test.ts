@@ -2,17 +2,25 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { mock, MockProxy } from 'vitest-mock-extended';
 import { DriverRepository, RideRepository } from '~/domain/repositories';
 import { AcceptRideUseCase } from '~/application/usecases';
-import { Driver, Location, Ride } from '~/domain/entities';
+import { Driver, Ride } from '~/domain/entities';
+import { Location } from '~/domain/vo';
+import { EventPublisher } from '~/domain/events';
 
 describe('AcceptRideUseCase', () => {
   let useCase: AcceptRideUseCase;
   let driverRepository: MockProxy<DriverRepository>;
   let rideRepository: MockProxy<RideRepository>;
+  let eventPublisher: MockProxy<EventPublisher>;
 
   beforeEach(() => {
     driverRepository = mock<DriverRepository>();
     rideRepository = mock<RideRepository>();
-    useCase = new AcceptRideUseCase(driverRepository, rideRepository);
+    eventPublisher = mock<EventPublisher>();
+    useCase = new AcceptRideUseCase(
+      driverRepository,
+      rideRepository,
+      eventPublisher,
+    );
   });
 
   it('should throw error when driver not found', async () => {
