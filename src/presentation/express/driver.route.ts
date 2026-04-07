@@ -28,7 +28,11 @@ const startTripUseCase = new StartTripUseCase(
   rideRepository,
   eventPublisher,
 );
-const completeRideUseCase = new CompleteRideUseCase(driverRepository);
+const completeRideUseCase = new CompleteRideUseCase(
+  driverRepository,
+  rideRepository,
+  eventPublisher,
+);
 
 const driverController = new DriverController(
   registerDriverUseCase,
